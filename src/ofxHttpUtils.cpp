@@ -117,7 +117,8 @@ ofxHttpResponse ofxHttpUtils::doPostForm(ofxHttpForm & form){
 
         HTTPClientSession session(uri.getHost(), uri.getPort());
         HTTPRequest req(HTTPRequest::HTTP_POST, path, HTTPMessage::HTTP_1_1);
-        if(auth.getUsername()!="") auth.authenticate(req);
+		HTTPResponse res;
+        if(auth.getUsername()!="") auth.authenticate(req, res);
 
         if(sendCookies){
         	for(unsigned i=0; i<cookies.size(); i++){
@@ -152,7 +153,6 @@ ofxHttpResponse ofxHttpUtils::doPostForm(ofxHttpForm & form){
 
         pocoForm.write(session.sendRequest(req));
 
-        HTTPResponse res;
         istream& rs = session.receiveResponse(res);
 
 		response = ofxHttpResponse(res, rs, path);
@@ -198,10 +198,10 @@ ofxHttpResponse ofxHttpUtils::getUrl(string url){
 
 		HTTPClientSession session(uri.getHost(), uri.getPort());
 		HTTPRequest req(HTTPRequest::HTTP_GET, path, HTTPMessage::HTTP_1_1);
-		if(auth.getUsername()!="") auth.authenticate(req);
+		HTTPResponse res;
+		if(auth.getUsername()!="") auth.authenticate(req, res);
 		session.setTimeout(Poco::Timespan(timeoutSeconds,0));
 		session.sendRequest(req);
-		HTTPResponse res;
 		istream& rs = session.receiveResponse(res);
 
 		response=ofxHttpResponse(res, rs, path);

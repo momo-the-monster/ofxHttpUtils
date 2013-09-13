@@ -16,7 +16,7 @@
 #include "Poco/Net/HTTPRequest.h"
 #include "Poco/Net/HTTPResponse.h"
 #include "Poco/Net/HTMLForm.h"
-#include "Poco/Net/HTTPBasicCredentials.h"
+#include "Poco/Net/HTTPCredentials.h"
 #include "Poco/StreamCopier.h"
 #include "Poco/Path.h"
 #include "Poco/URI.h"
@@ -120,7 +120,7 @@ class ofxHttpUtils : public ofThread{
 
 		std::queue<ofxHttpForm> forms;
 		vector<HTTPCookie> cookies;
-		HTTPBasicCredentials auth;
+		HTTPCredentials auth;
 
 
 };
